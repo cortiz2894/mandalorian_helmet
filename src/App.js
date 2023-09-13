@@ -1,25 +1,35 @@
-import logo from './logo.svg';
+import {useRef, useState} from 'react'
 import './App.css';
+import { Model } from './components/hemelt';
+import { Suspense } from 'react'
+import { Canvas } from '@react-three/fiber'
+import Logo from './components/icons/logo'
+import { Environment, OrbitControls, ScrollControls } from "@react-three/drei";
+import Header from './components/Header/Index';
+import Overlay from './components/Overlay/Index';
+
 
 function App() {
+  const [value, setValue] = useState(-2.2)
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header />
+      <div className={'canvasRoot'}>
+        <Canvas camera={{
+          fov:64,
+          position: [1.3, 1.5, 5.3]
+        }}>
+          <Suspense fallback={null}>
+            <OrbitControls enableZoom={false}/>
+            <ScrollControls damping={0.25} pages={3}>
+              <Overlay />
+              <Model rotation={value}/>
+              <Environment preset="sunset" />
+            </ScrollControls>
+          </Suspense>
+        </Canvas>
+      </div>
     </div>
   );
 }
-
 export default App;

@@ -36,3 +36,9 @@
     transform: rotate(360deg);
   }
 }
+
+.canvasRoot {
+  height: 100vh;
+  position: relative;
+  z-index: 0;
+}
